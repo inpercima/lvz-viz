@@ -12,12 +12,23 @@ by [OK Lab Leipzig](http://codefor.de/projekte/2014-07-01-le-lvz_polizeiticker_v
 ## Usage
 
 Build and run the app with [npm](https://www.npmjs.com), [Grunt](http://gruntjs.com/) and [Gradle](https://gradle.org).
-The crawling and indexing of new articles is activated by the startup parameter --spring.profiles.active=crawl.
+The crawling and indexing of new articles is activated by the startup parameter --spring.profiles.active=crawl resp.:
+
+```
+export SPRING_PROFILES_ACTIVE=crawl
+```
 
 ### Gradle, npm and Grunt
 
+
 You can build an executable jar with gradle and run it as a separate process.
 The client js dependencies will be downloaded with npm and packaged with Grunt during the build phase from gradle.
+
+```
+npm install grunt-cli
+grunt concat
+grunt uglify
+```
 
 ```
 ./gradlew build

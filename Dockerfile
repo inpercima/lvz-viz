@@ -1,6 +1,6 @@
 FROM node:carbon AS build-js
 
-RUN npm install -g grunt-cli
+RUN npm install grunt-cli
 
 ENV USER app
 RUN adduser --disabled-password -gecos '' $USER
@@ -9,7 +9,7 @@ USER $USER
 WORKDIR /home/$USER
 
 COPY --chown=app Gruntfile.js package*.json ./
-COPY --chown=app src/main/resources/public/js ./src/main/resources/public/js
+COPY --chown=app src/main/resources/public/js /home/app/src/main/resources/public/js
 
 RUN npm install
 
@@ -22,7 +22,8 @@ WORKDIR /home/gradle/app
 COPY --chown=gradle build.gradle .
 COPY --chown=gradle src ./src
 RUN rm -f src/main/resources/public/js/*.js
-COPY --chown=gradle --from=build-js /home/app/build/resources/main/public/js/app.min.js ./src/main/resources/public/js/
+RUN grunt concat && grunt uglify
+COPY --chown=gradle --from=build-js /home/app/build/resources/main/public/js/app.min.js /home/app/src/main/resources/public/js/
 
 RUN gradle --no-daemon build -x test
 
