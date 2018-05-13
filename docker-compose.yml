@@ -8,5 +8,16 @@ services:
       - 8080:8080
     volumes:
       - ./data:/home/lvz-viz/data
+    links:
+      - elasticsearch
     environment:
       - SPRING_PROFILES_ACTIVE=crawl
+      - ELASTICSEARCH_URL='http://elasticsearch:9200'
+  elasticsearch:
+    image: elasticsearch:5.4.3
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./data:/home/lvz-viz/data
+      

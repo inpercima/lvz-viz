@@ -3,6 +3,7 @@ package de.codefor.le.crawler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -84,11 +85,11 @@ public class LvzPoliceTickerCrawler {
             }
             final String id = Utils.generateHashForUrl(detailLink);
             if (!id.isEmpty()) {
-                PoliceTicker article = null;
+                Optional<PoliceTicker> article = null;
                 if (policeTickerRepository != null) {
-                    article = policeTickerRepository.findOne(id);
+                    article = policeTickerRepository.findById(id);
                 }
-                if (article == null) {
+                if (!article.isPresent()) {
                     logger.debug("article not stored yet - save it");
                     crawledNews.add(detailLink);
                 } else {

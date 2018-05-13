@@ -1,6 +1,6 @@
 buildscript {
   ext {
-    springBootVersion = '1.4.7.RELEASE'
+    springBootVersion = '2.0.2.RELEASE'
   }
   repositories {
     jcenter()
@@ -19,6 +19,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 apply plugin: 'docker-compose'
 
 sourceCompatibility="1.8"
@@ -28,11 +29,6 @@ version="1.2.0-SNAPSHOT"
 
 defaultTasks 'build'
 
-springBoot {
-  executable = true
-  mainClass = 'de.codefor.le.LvzViz'
-}
-
 repositories { mavenCentral() }
 dependencies {
   compile "com.google.guava:guava:18.0",
@@ -41,9 +37,15 @@ dependencies {
           "edu.stanford.nlp:stanford-corenlp:3.6.0"
 
   compile "org.springframework.boot:spring-boot-starter-web",
-          "org.springframework.boot:spring-boot-starter-logging",
-          "org.springframework.boot:spring-boot-starter-data-elasticsearch",
-          "org.springframework.boot:spring-boot-starter-actuator"
+          "org.elasticsearch:elasticsearch:5.4.3",
+          "org.elasticsearch.plugin:transport-netty4-client:5.4.3",
+          "org.elasticsearch.client:transport:5.4.3",
+          "de.dentrassi.elasticsearch:log4j2-mock:0.0.1"
+
+  compile ("org.springframework.data:spring-data-elasticsearch:3.0.6.RELEASE") {
+  	exclude group: "org.elasticsearch.client"
+  }
+
 
   runtime "net.java.dev.jna:jna"
 
@@ -84,4 +86,4 @@ eclipse {
 // see https://github.com/srs/gradle-node-plugin/blob/master/docs/grunt.md
 grunt_default.dependsOn 'npmInstall'
 // run grunt default in findMainClass which runs after :processResources b/c all resources are copied and grunt can do his job
-findMainClass.dependsOn(grunt_default)
+//findMainClass.dependsOn(grunt_default)

@@ -2,6 +2,7 @@ package de.codefor.le;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -10,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableSpringDataWebSupport
 @SpringBootApplication
+@EnableElasticsearchRepositories(basePackages = { "de.codefor.le.repositories" })
 public class LvzViz {
 
     public static void main(final String[] args) {
