@@ -47,7 +47,7 @@ dependencies {
                  "org.jsoup:jsoup:1.15.2",
                  "org.seleniumhq.selenium:selenium-java:4.3.0"
 
-  implementation("edu.stanford.nlp:stanford-corenlp:3.9.2") {
+  implementation("edu.stanford.nlp:stanford-corenlp:4.4.0") {
     // because https://app.snyk.io/vuln/SNYK-JAVA-COMGOOGLEPROTOBUF-173761
     exclude group: "com.google.protobuf", module: "protobuf-java"
     // because https://app.snyk.io/vuln/SNYK-JAVA-XALAN-31385
